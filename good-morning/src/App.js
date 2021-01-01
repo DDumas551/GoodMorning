@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Title from "./Title";
+import Body from "./Body";
+import "./App.css";
 
 function App() {
   const [name, setName] = useState(
@@ -10,7 +12,10 @@ function App() {
   }, [name]);
   return (
     <div className="app">
-      <Title name={name} setName={setName} />
+      <div style={{ padding: "9px", height: "90%" }}>
+        <Title name={name} setName={setName} />
+        <Body />
+      </div>
     </div>
   );
 }
