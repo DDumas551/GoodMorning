@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { compass, displayTemp } from "./helpers/helpers";
 import moment from "moment";
 import axios from "axios";
 
@@ -27,43 +28,64 @@ const Weather = () => {
     setWeather(weatherData.data);
   };
 
-  const divStyle = { margin: "auto" };
-
   const renderCard = () => {
-    const maxTemp = weather.main.temp_max;
-    const minTemp = weather.main.temp_min;
-    const actTemp = weather.main.temp;
-    const sunrise = moment(weather.sys.sunrise).format('LT');
-    console.log(sunrise)
+    const maxTemp = weather.main.temp_max,
+      minTemp = weather.main.temp_min,
+      actTemp = weather.main.temp,
+      sunrise = moment(weather.sys.sunrise * 1000).format("LT"),
+      sunset = moment(weather.sys.sunset * 1000).format("LT"),
+      uMeasure = temp ? "C" : "F",
+      weatherDescription =
+        weather.weather[0].description.charAt(0).toUpperCase() +
+        weather.weather[0].description.slice(1),
+      cardStyle = {
+        display: "flex",
+        flexDirection: "column",
+      },
+      divStyle = { margin: "auto" },
+      windStyle = {
+        position: "absolute",
+        top: "50px",
+        left: "50px",
+        borderLeft: "2px solid black",
+        height: "40px",
+        width: "20px",
+        zIndex: "2",
+        transform: `rotate(${weather.wind.deg - 180}deg)`,
+        transformOrigin: "top left",
+      };
 
-    const displayTemp = (val) => {
-      if (temp) {
-        return (val - 273).toFixed(0);
-      } else {
-        return ((val - 273) * (9 / 5) + 32).toFixed(0);
-      }
-    };
-    console.log(weather);
+    // console.log(weather);
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
-        <h1 style={divStyle}>{`${displayTemp(actTemp)}°${
-          temp ? "C" : "F"
-        }`}</h1>
+      <div style={cardStyle}>
+        <h3 style={divStyle}>{`Current Weather in`}</h3>
+        <h3 style={divStyle}>{`${weather.name}`}</h3>
+
+        {/* <h2>{``}</h2> */}
+        <h1 style={divStyle}>{`${displayTemp(temp, actTemp)}°${uMeasure}`}</h1>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <div>{`Min ${displayTemp(minTemp)}°`}</div>
-          <div>{`Max ${displayTemp(maxTemp)}°`}</div>
+          <div>{`Min ${displayTemp(temp, minTemp)}°${uMeasure}`}</div>
+          <div>{`Max ${displayTemp(temp, maxTemp)}°${uMeasure}`}</div>
         </div>
-        <div style={divStyle}>{weather.weather[0].main} Skies</div>
-        <div style={divStyle}>{`${weather.name}, ${weather.sys.country}`}</div>
+        <div className="guageContainer" style={divStyle}>
+          <div className="circle">
+            <div className="center" style={windStyle} />
+          </div>
+        </div>
+        <div style={divStyle}>
+          <b>{`${compass(weather.wind.deg)} at ${weather.wind.speed}mph`}</b>
+        </div>
+        <div style={divStyle}>{weatherDescription}</div>
         <div style={divStyle}>{`Humidity: ${weather.main.humidity}%`}</div>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <div>{`Sunrise: ${weather.sys.sunrise}`}</div>
-          <div>{`Sunset: ${weather.sys.sunset}`}</div>
+          <div>
+            Sunrise:
+            <div>{sunrise}</div>
+          </div>
+          <div>
+            Sunset:
+            <div>{sunset}</div>
+          </div>
         </div>
       </div>
     );
