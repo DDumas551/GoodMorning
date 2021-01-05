@@ -1,6 +1,6 @@
 const compass = (val) => {
   var direction = "";
-  console.log(val);
+  // console.log(val);
   if (val > 0 && val < 22.5) {
     direction = "North";
   } else if (val > 22.5 && val < 67.5) {

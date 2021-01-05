@@ -1,5 +1,11 @@
-const key = "b0QgZN5TURx5LB79OKLlxahUi";
+export const APIkey = "b0QgZN5TURx5LB79OKLlxahUi";
 
-const sec = "ixKpxxdWKJ0kfgt45HV61SEGMVxn0b7VvTXW56AZKqXPNhi9Rp"
+export const APIsecret = "ixKpxxdWKJ0kfgt45HV61SEGMVxn0b7VvTXW56AZKqXPNhi9Rp";
 
-const token = "AAAAAAAAAAAAAAAAAAAAAER1LAEAAAAA6XL%2FgH9Kd%2B1DwvHwj1eRmJJUe38%3Dovrth4ujLsKUKbHY0WwFbPyz3AWFhlwLHTC7VZSeB9lSpM2vvo"
+export const token =
+  "AAAAAAAAAAAAAAAAAAAAAER1LAEAAAAAuCwwXg4t8I9%2BKkzH8ALIwh%2FXyio%3DxCzFURV2puP8nQHYp4QHB72AnyIdEMjbAy0sQ4ng5I8zTI2wld";
+
+export const accessToken = "1210424300-CbHkmuFKwc5mGxj6KU6OpRo9pSqNUXGytaWgosr";
+
+export const accessTokenSecret =
+  "Ff3ZgEdACM58hFnqzTEb38hbdmKtTVVR8ZKT2msP7nlj6";

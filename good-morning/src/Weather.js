@@ -12,7 +12,6 @@ const Weather = () => {
     [temp, setTemp] = useState(true);
 
   useEffect(() => {
-    console.log("Get Location");
     navigator.geolocation.getCurrentPosition((position) => {
       setLat(position.coords.latitude);
       setLon(position.coords.longitude);
@@ -21,7 +20,6 @@ const Weather = () => {
   }, [lat, lon]);
 
   const getData = async (lat, lon) => {
-    console.log("Get Data");
     const weatherData = await axios.get(
       `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${ALT_KEY}`
     );
@@ -55,13 +53,10 @@ const Weather = () => {
         transformOrigin: "top left",
       };
 
-    // console.log(weather);
     return (
       <div style={cardStyle}>
         <h3 style={divStyle}>{`Current Weather in`}</h3>
         <h3 style={divStyle}>{`${weather.name}`}</h3>
-
-        {/* <h2>{``}</h2> */}
         <h1 style={divStyle}>{`${displayTemp(temp, actTemp)}°${uMeasure}`}</h1>
         <div style={{ display: "flex", justifyContent: "space-around" }}>
           <div>{`Min ${displayTemp(temp, minTemp)}°${uMeasure}`}</div>
